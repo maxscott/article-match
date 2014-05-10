@@ -13,7 +13,6 @@ describe Article do
 
   it 'should set values between 0 and 1' do
     a = Article.new %w(meow words whocares theres enough now), 4
-    puts a.keyword_values.inspect
     a.keyword_values.each do |value| 
       value.should satisfy { |v| v >= 0 }
       value.should satisfy { |v| v <= 1 }
