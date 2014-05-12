@@ -29,14 +29,3 @@ articles.each do |a|
 end
 
 
-def merge(left, right)
-  sorted = []
-  until left.empty? or right.empty?
-    if left.first <= right.first
-      sorted << left.shift
-    else
-      sorted << right.shift
-    end
-  end
-  sorted.concat(left).concat(right)
-end
