@@ -1,6 +1,5 @@
 class Article
-  attr_accessor :keywords, :related_articles
-  attr_reader :id
+  attr_accessor :keywords, :related_articles, :id
   # [ 
   #   {:name => "whatever", :val => .09}, 
   #   {:name => "else", :val => .45} 

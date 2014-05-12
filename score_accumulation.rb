@@ -24,6 +24,4 @@ module ScoreAccumulation
 
     candidates
   end
-
 end
-

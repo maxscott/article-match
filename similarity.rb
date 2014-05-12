@@ -30,7 +30,7 @@ module Similarity
 
   def self.all_magnitudes article_list
     mags = {}
-    article_list.each { |a| mags[a.id] = magnitude(a.keywords) }
+    article_list.each { |a| mags[a.id] = magnitude(a.keywords.map { |w| w[:val] }) }
     mags
   end
 end
