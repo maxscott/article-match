@@ -26,8 +26,9 @@ describe ScoreAccumulation do
     given_keyword_list = list1.clone
 
     candidate_hash = 
-      ScoreAccumulation.accumulate(given_id, given_keyword_list, joined_inversions, { "id1" => 0.4472, "id2" => 0.5916 })
+      ScoreAccumulation.accumulate(given_id, given_keyword_list, joined_inversions, { "id1" => 0.4472135955, "id2" => 0.59160797831 })
 
-    candidate_hash["id2"] == 0.84366
+    candidate_hash["id2"].should == 0.8315218406201678
+    candidate_hash["id1"].should == nil
   end
 end

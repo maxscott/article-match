@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: stage
+      hosts:
+        - localhost:27017

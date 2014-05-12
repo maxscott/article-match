@@ -3,29 +3,21 @@ require_relative 'index_inverter'
 require_relative 'score_accumulation'
 require_relative 'similarity'
 
-articles = ArticleStore.new.run 10, 3
-puts "*** Created Articles ***"
+print "*** Creating Articles..."
+articles = ArticleStore.new.run 700, 5
+puts "done ***"
 
-inverter = IndexInverter.new
-inversions = articles.map { |a| inverter.invert a.keywords, a.id}
-puts "*** Finished Inversions ***"
+print "*** Joining inversions ..."
+joined_inversions = IndexInverter.join_all articles
+puts "done ***"
 
-joined_inversions = inverter.join_all inversions
-puts "*** Joined all Inversions ***"
-
+print "*** Calculating magnitudes ..."
 magnitudes = Similarity.all_magnitudes articles
-puts "*** Calculated Magnitudes ***"
+puts "done ***"
 
+print "*** Scoring ..."
 for i in 0..articles.length-1
+  puts "#{i}..." if i % 100 == 0
   candidates = ScoreAccumulation.article_candidates articles[i], joined_inversions, magnitudes
-  puts "*** Article #{i}"
-  puts articles[i].inspect
-  puts "*** Candidates: "
-  candidates.each { |k,v| 
-    print v.round(2)
-    print " => " 
-    print articles.select { |a| a.id == k }.inspect
-    print "\n"
-  }
-  puts "*** done ***"
 end
+puts "*** finished ***"
