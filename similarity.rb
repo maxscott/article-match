@@ -5,7 +5,7 @@ module Similarity
     v1 = sorted_values_of_intersection( keywords1, intersect_names )
     v2 = sorted_values_of_intersection( keywords2, intersect_names )
 
-    dot( v1, v2 ) #/ (magnitude v1 * magnitude(v2) )
+    dot( v1, v2 ) / (magnitude(v1) * magnitude(v2) )
   end
 
   :private
