@@ -17,7 +17,7 @@ class Article
   def initialize (wordList = nil, words = 0, id = 0)
     @related_articles = []
     @id = id
-    wordList = wordList.clone
+    wordList = wordList.clone unless wordList == nil
     @keywords = []
     words.times do
       word_sample = wordList.sample

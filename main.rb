@@ -9,9 +9,34 @@ inversions = articles.map { |a| inverter.invert a.keywords, a.id}
 puts "*** Finished Inversions ***"
 
 joined = {}
-for i in 0..articles.count-1 do
+for i in 0..inversions.count-1 do
   joined = inverter.join(joined, inversions[i])
 end
 puts "*** Joined all Inversions ***"
 
-puts joined.inspect
+
+articles.each do |a|
+  lists_to_merge = a.keywords.map do |w|
+    lw = joined[w].clone
+    mw = lw.remove(a.id)
+    lw.map! { |weight| weight * mw }
+    lw
+  end
+
+  ptrs = []
+  lists_to_merge.count.times { ptrs << 0 }
+
+end
+
+
+def merge(left, right)
+  sorted = []
+  until left.empty? or right.empty?
+    if left.first <= right.first
+      sorted << left.shift
+    else
+      sorted << right.shift
+    end
+  end
+  sorted.concat(left).concat(right)
+end
