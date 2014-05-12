@@ -1,11 +1,14 @@
 module ScoreAccumulation
+  def self.article_candidates (article, inversions, magnitudes)
+    accumulate(article.id, article.keywords, inversions, magnitudes)
+  end
+
   def self.accumulate(document_id, keyword_list, inversion_index_hash, magnitudes)
 
     candidates = {}
 
     for i in 0..keyword_list.length - 1
       current_keyword = keyword_list[i]
-
       temp_article_key_weights = inversion_index_hash[current_keyword[:name]].clone
       current_keyword_weight = temp_article_key_weights.delete(document_id)
       

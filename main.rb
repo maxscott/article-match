@@ -1,31 +1,31 @@
 require_relative 'article_store'
 require_relative 'index_inverter'
+require_relative 'score_accumulation'
+require_relative 'similarity'
 
-articles = ArticleStore.new.run 50, 3
+articles = ArticleStore.new.run 10, 3
 puts "*** Created Articles ***"
 
 inverter = IndexInverter.new
 inversions = articles.map { |a| inverter.invert a.keywords, a.id}
 puts "*** Finished Inversions ***"
 
-joined = {}
-for i in 0..inversions.count-1 do
-  joined = inverter.join(joined, inversions[i])
-end
+joined_inversions = inverter.join_all inversions
 puts "*** Joined all Inversions ***"
 
+magnitudes = Similarity.all_magnitudes articles
+puts "*** Calculated Magnitudes ***"
 
-articles.each do |a|
-  lists_to_merge = a.keywords.map do |w|
-    lw = joined[w].clone
-    mw = lw.remove(a.id)
-    lw.map! { |weight| weight * mw }
-    lw
-  end
-
-  ptrs = []
-  lists_to_merge.count.times { ptrs << 0 }
-
+for i in 0..articles.length-1
+  candidates = ScoreAccumulation.article_candidates articles[i], joined_inversions, magnitudes
+  puts "*** Article #{i}"
+  puts articles[i].inspect
+  puts "*** Candidates: "
+  candidates.each { |k,v| 
+    print v.round(2)
+    print " => " 
+    print articles.select { |a| a.id == k }.inspect
+    print "\n"
+  }
+  puts "*** done ***"
 end
-
-

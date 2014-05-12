@@ -23,7 +23,7 @@ describe IndexInverter do
     inversion1 = IndexInverter.new.invert keywords1, id1
     inversion2 = IndexInverter.new.invert keywords2, id2
 
-    joined_inversions = IndexInverter.new.join inversion1, inversion2
+    joined_inversions = IndexInverter.new.join_all [inversion1, inversion2]
 
     joined_inversions["meow"].count.should == 1
     joined_inversions["meow"][id1].should == 0.5

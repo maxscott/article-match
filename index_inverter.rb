@@ -15,4 +15,12 @@ class IndexInverter
     end
     inversion1
   end
+
+  def join_all inversions
+    joined = {}
+    for i in 0..inversions.count-1 do
+      joined = join(joined, inversions[i])
+    end
+    joined
+  end
 end
