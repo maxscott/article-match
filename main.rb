@@ -4,7 +4,7 @@ require_relative 'score_accumulation'
 require_relative 'similarity'
 
 print "*** Creating Articles..."
-articles = ArticleStore.new.run 700, 5
+articles = ArticleStore.new.run 700, 10
 puts "done ***"
 
 print "*** Joining inversions ..."

@@ -1,6 +1,6 @@
 development:
   sessions:
     default:
-      database: stage
+      database: vest-stage
       hosts:
         - localhost:27017

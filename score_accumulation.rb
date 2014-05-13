@@ -9,17 +9,17 @@ module ScoreAccumulation
 
     for i in 0..keyword_list.length - 1
       current_keyword = keyword_list[i]
-      temp_article_key_weights = inversion_index_hash[current_keyword[:name]]
+      article_weights = inversion_index_hash[current_keyword[:name]]
 
       # would be faster to create all these lists seperately then merge/aggregate
       # init, 
       # remove bottom half of cosine similarity, 
       # update dotproduct
       # add back the magnitudes piece
-      temp_article_key_weights.each do |k, v|
+      article_weights.each do |k, v|
         next if k == document_id
         candidates[k] ||= 0
-        candidates[k] += v * temp_article_key_weights[document_id]
+        candidates[k] += v * article_weights[document_id]
       end
     end
 
