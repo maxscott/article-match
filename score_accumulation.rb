@@ -3,7 +3,7 @@ module ScoreAccumulation
     accumulate(article.id, article.keywords, inversions, magnitudes)
   end
 
-  def self.accumulate(document_id, keyword_list, inversion_index_hash, magnitudes)
+  def self.accumulate(id, keyword_list, inversion_index_hash, magnitudes)
 
     candidates = {}
 
@@ -11,19 +11,15 @@ module ScoreAccumulation
       current_keyword = keyword_list[i]
       article_weights = inversion_index_hash[current_keyword[:name]]
 
-      # would be faster to create all these lists seperately then merge/aggregate
-      # init, 
-      # remove bottom half of cosine similarity, 
-      # update dotproduct
-      # add back the magnitudes piece
+      # would be faster to create lists and merge them
       article_weights.each do |k, v|
-        next if k == document_id
+        next if k == id
         candidates[k] ||= 0
-        candidates[k] += v * article_weights[document_id]
+        candidates[k] += v * article_weights[id]
       end
     end
 
-    candidates.each { |k,v| candidates[k] /= (magnitudes[k] * magnitudes[document_id]) } 
+    candidates.each { |k,v| candidates[k] /= (magnitudes[k] * magnitudes[id]) } 
 
     candidates
   end
