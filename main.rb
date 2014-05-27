@@ -7,8 +7,6 @@ print "*** Creating Articles..."
 articles = ArticleStore.new.run 1500, 15
 puts "done ***"
 
-puts articles.inspect
-
 print "*** Joining inversions ..."
 joined_inversions = IndexInverter.join_all articles
 puts "done ***"
